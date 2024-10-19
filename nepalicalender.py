@@ -8,6 +8,14 @@ import calendar
 import datetime
 tithi1=['Pratipada','Dwitiya','Tritiya','Panchami','Sasti','Saptami','Aastami','Nawami','Dashami','Ekadasi','Dwadashi','Tryodashi','Chaturdashi','Aausi']
 tithi2=['Pratipada','Dwitiya','Tritiya','Panchami','Sasti','Saptami','Aastami','Nawami','Dashami','Ekadasi','Dwadashi','Tryodashi','Chaturdashi','Purnima']
+imp_event={
+    '01-01':"Nepali New Year",
+    '02-15':'Gadatantra Diwas',
+    '04-20':'Bhoto Jatra',
+    "05-10":"Krishna Janmastami",
+    "06-03":"Constitution Day",
+    '09-27':'Prithivi Jayanti'
+}
 user_input_date=input("Enter english date in format (YYYY-MM-DD) : ")
 yy=int(user_input_date[:4])
 mm=int(user_input_date[5:7])
@@ -52,6 +60,20 @@ def calculate_tithi(np_year, np_month, np_day):
         return tithi1[tithi_index]
     else:
         return tithi2[tithi_index]
+
+def find_imp_event(mm,dd):
+    if mm<10:
+        string_date='0'+str(mm)+'-'
+    else:
+        string_date=str(mm)+'-'
+    if dd<10:
+        string_date+='0'+str(dd)
+    else:
+        string_date+=str(dd)
+    for k,v in imp_event.items():
+        if string_date==k:
+            return v
+
 np_year=year_conversion(yy,mm,dd)
 np_month=month_conversion(mm,dd)
 np_day=day_conversion(dd)
@@ -61,3 +83,5 @@ print("Nepali day: ",np_day)
 print('Thiti is: ',calculate_tithi(np_year,np_month,np_day))
 current_time=datetime.datetime.now()
 print("Current time is: {}".format(current_time.strftime("%H:%M:%S")))
+if find_imp_event(np_month,np_day):
+    print("Important event  is  : ",find_imp_event(np_month,np_day) )
